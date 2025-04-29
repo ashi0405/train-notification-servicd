@@ -4,20 +4,20 @@ FROM openjdk:17-jdk-slim
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper and pom.xml to the working directory
+# Copy the entire project to the working directory
 COPY . /app
 
-# Install Maven (if not already available in the image)
+# Install Maven
 RUN apt-get update && apt-get install -y maven
 
 # Build the app using Maven
 RUN ./mvnw clean package
 
-# Copy the target jar file to the final location
+# Copy the JAR file from the target directory
 COPY target/NotificationService-0.0.1-SNAPSHOT.jar /app/NotificationService.jar
 
-# Expose the port your application will run on
+# Expose the port the app will run on
 EXPOSE 8080
 
-# Command to run the jar file
+# Run the Spring Boot app
 CMD ["java", "-jar", "/app/NotificationService.jar"]
