@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class NotificationServiceApplication {
 
 	public static void main(String[] args) {
+		System.out.println("NotificationServiceApplication is running - Ashita");
 		SpringApplication.run(NotificationServiceApplication.class, args);
 	}
 
