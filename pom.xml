@@ -77,10 +77,18 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>3.4.5</version>
 				<configuration>
-					<mainClass>com.example.NotificationServiceApplication</mainClass> <!-- Replace with your main class -->
+					<mainClass>com.example.notify.NotificationServiceApplication</mainClass>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
