@@ -17,12 +17,12 @@ public class PurgeOldTicketsJob {
     private TicketRepository ticketRepository;
 
     @Value("${purge.job.enabled}")
-    private boolean schedulerEnabled;
+    private boolean purgeJobEnabled;
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24) // Every 24 hours
     public void purgeOldTickets() {
 
-        if (!schedulerEnabled) {
+        if (!purgeJobEnabled) {
             System.out.println("Scheduler is disabled. Purge Task will not run.");
             return; // If scheduler is disabled, do nothing.
         }
