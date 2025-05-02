@@ -23,7 +23,7 @@ public class PurgeOldTicketsJob {
     public void purgeOldTickets() {
 
         if (!purgeJobEnabled) {
-            System.out.println("Scheduler is disabled. Purge Task will not run.");
+            System.out.println("Purge Job is disabled. Purge Task will not run.");
             return; // If scheduler is disabled, do nothing.
         }
 
