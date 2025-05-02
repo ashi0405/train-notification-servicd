@@ -3,6 +3,7 @@ package com.example.notify.purge;
 import com.example.notify.entity.Ticket;
 import com.example.notify.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,17 @@ public class PurgeOldTicketsJob {
     @Autowired
     private TicketRepository ticketRepository;
 
+    @Value("${purge.job.enabled}")
+    private boolean schedulerEnabled;
+
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24) // Every 24 hours
     public void purgeOldTickets() {
+
+        if (!schedulerEnabled) {
+            System.out.println("Scheduler is disabled. Purge Task will not run.");
+            return; // If scheduler is disabled, do nothing.
+        }
+
         System.out.println("Purge job started.");
         List<Ticket> tickets = ticketRepository.findAll();
         LocalDate today = LocalDate.now();

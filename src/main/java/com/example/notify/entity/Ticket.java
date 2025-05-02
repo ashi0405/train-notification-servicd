@@ -1,12 +1,19 @@
 package com.example.notify.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import jakarta.persistence.*;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,54 +25,35 @@ public class Ticket {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotNull(message = "PNR Number is required.")
     private String pnrNumber;
 
+    @Column(nullable = false)
+    @NotNull(message = "UserName is required.")
     private String userName;
 
+    @Column(nullable = false)
+    @NotNull(message = "TrainName is required.")
     private String trainName;
 
     private String status; // Pending, Confirmed, Waitlisted, etc.
 
+    @Column(nullable = false)
+    @NotNull(message = "JourneyDate is required.")
+    @JsonFormat(pattern = "yyyy-MM-dd") // Specify the date format
     private LocalDate journeyDate;
 
-    private LocalDateTime lastCheckedAt;
 
-    // existing fields
+    @NotNull(message = "Email is required.")
+    @Email(message = "Invalid email format.")
+    @Column(nullable = false)
+    private String email;
 
-    public String getStatus() {
-        return status;
+    @JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+    @Column
+    private Date startDate;
+
+    public void setLastCheckedAt(LocalDateTime now) {
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getLastCheckedAt() {
-        return lastCheckedAt;
-    }
-
-    public void setLastCheckedAt(LocalDateTime lastCheckedAt) {
-        this.lastCheckedAt = lastCheckedAt;
-    }
-
-// existing fields
-
-    public LocalDate getJourneyDate() {
-        return journeyDate;
-    }
-
-    public void setJourneyDate(LocalDate journeyDate) {
-        this.journeyDate = journeyDate;
-    }
-
-    public String getPnrNumber() {
-        return pnrNumber;
-    }
-
-    public void setPnrNumber(String pnrNumber) {
-        this.pnrNumber = pnrNumber;
-    }
-
-
 }
 

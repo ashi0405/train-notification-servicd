@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthCheckController {
     @GetMapping("/health")
     public String healthCheck() {
-        System.out.println("Notification Service is running - Ashita");
+        System.out.println("Notification Service is running");
         return "Notification Service is running";
     }
 }
