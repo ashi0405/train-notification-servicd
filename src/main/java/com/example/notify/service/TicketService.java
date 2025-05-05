@@ -31,18 +31,6 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public void updateTicketStatus(String pnr, String newStatus) {
-        ticketRepository.findByPnrNumber(pnr).ifPresent(ticket -> {
-            ticket.setStatus(newStatus);
-            ticket.setLastCheckedAt(LocalDateTime.now());
-            ticketRepository.save(ticket);
-        });
-    }
-
-    public void purgeOldTickets() {
-        List<Ticket> expired = ticketRepository.findByJourneyDateBefore(LocalDate.now());
-        ticketRepository.deleteAll(expired);
-    }
 }
 
 

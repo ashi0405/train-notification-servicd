@@ -2,6 +2,7 @@ package com.example.notify.purge;
 
 import com.example.notify.entity.Ticket;
 import com.example.notify.repository.TicketRepository;
+import com.example.notify.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +13,9 @@ import java.util.List;
 
 @Service
 public class PurgeOldTicketsJob {
+
+    @Autowired
+    private TicketService ticketService;
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -28,7 +32,7 @@ public class PurgeOldTicketsJob {
         }
 
         System.out.println("Purge job started.");
-        List<Ticket> tickets = ticketRepository.findAll();
+        List<Ticket> tickets = ticketService.getAllTickets();
         LocalDate today = LocalDate.now();
         for (Ticket ticket : tickets) {
             if (ticket.getJourneyDate().isBefore(today)) {

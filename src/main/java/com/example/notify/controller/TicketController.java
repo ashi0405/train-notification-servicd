@@ -1,7 +1,7 @@
 package com.example.notify.controller;
 
 import com.example.notify.entity.Ticket;
-import com.example.notify.error.ErrorResponse;
+import com.example.notify.response.ErrorResponse;
 import com.example.notify.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

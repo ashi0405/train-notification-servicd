@@ -1,4 +1,4 @@
-package com.example.notify.error;
+package com.example.notify.response;
 
 public class ErrorResponse {
     private String message;

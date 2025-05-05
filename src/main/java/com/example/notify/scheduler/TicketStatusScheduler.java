@@ -2,8 +2,10 @@ package com.example.notify.scheduler;
 
 import com.example.notify.emailservice.EmailService;
 import com.example.notify.entity.Ticket;
+import com.example.notify.pnr.PNRStatusClient;
 import com.example.notify.repository.TicketRepository;
 import com.example.notify.service.NotificationProducer;
+import com.example.notify.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +17,9 @@ import java.util.List;
 public class TicketStatusScheduler {
 
     @Autowired
+    private TicketService ticketService;
+
+    @Autowired
     private TicketRepository ticketRepository;
 
     @Autowired
@@ -22,6 +27,9 @@ public class TicketStatusScheduler {
 
     @Value("${scheduler.enabled}")
     private boolean schedulerEnabled;
+
+    @Autowired
+    private PNRStatusClient pnrStatusClient;
 
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 12) // Every 12 hours
@@ -34,17 +42,18 @@ public class TicketStatusScheduler {
 
         System.out.println("Scheduled job started - checking status...");
 
-        List<Ticket> tickets = ticketRepository.findAll();
+        List<Ticket> tickets = ticketService.getAllTickets();
+
         for (Ticket ticket : tickets) {
 
             String oldStatus = ticket.getStatus();
-            String updatedStatus = simulateStatusCheck(oldStatus);
+            String updatedStatus = pnrStatusClient.checkPnrStatus(ticket.getPnrNumber());
 
             if (!oldStatus.equals(updatedStatus)) {
                 ticket.setStatus(updatedStatus);
                 ticketRepository.save(ticket);
 
-                if ("CONFIRMED".equals(updatedStatus)) {
+                if ("CNF".equals(updatedStatus)) {
                     producer.sendNotification(ticket);
                 }
             }
@@ -52,9 +61,9 @@ public class TicketStatusScheduler {
         System.out.println("Scheduled job completed.");
     }
 
-    private String simulateStatusCheck(String currentStatus) {
-        // Simulated logic: WAITLISTED -> CONFIRMED, CONFIRMED remains, CANCELLED remains
-        if ("WAITLISTED".equals(currentStatus)) return "CONFIRMED";
-        return currentStatus;
-    }
+//    private String simulateStatusCheck(String currentStatus) {
+//        // Simulated logic: WAITLISTED -> CONFIRMED, CONFIRMED remains, CANCELLED remains
+//        if ("WAITLISTED".equals(currentStatus)) return "CONFIRMED";
+//        return currentStatus;
+//    }
 }

@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     Optional<Ticket> findByPnrNumber(String pnrNumber);
-    List<Ticket> findByJourneyDateBefore(LocalDate date); // for purge job
 }
 
 
