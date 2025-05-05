@@ -49,10 +49,6 @@ public class Ticket {
     @Column(nullable = false)
     private String email;
 
-    @JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
-    @Column
-    private Date startDate;
-
     public void setLastCheckedAt(LocalDateTime now) {
     }
 }

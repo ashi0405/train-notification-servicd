@@ -36,7 +36,7 @@ public class TicketStatusScheduler {
 
         List<Ticket> tickets = ticketRepository.findAll();
         for (Ticket ticket : tickets) {
-            // Simulate status check from API
+
             String oldStatus = ticket.getStatus();
             String updatedStatus = simulateStatusCheck(oldStatus);
 
