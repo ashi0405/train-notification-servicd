@@ -48,8 +48,5 @@ public class Ticket {
     @Email(message = "Invalid email format.")
     @Column(nullable = false)
     private String email;
-
-    public void setLastCheckedAt(LocalDateTime now) {
-    }
 }
 

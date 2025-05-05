@@ -19,7 +19,6 @@ public class TicketService {
 
     public Ticket saveTicket(Ticket ticket) {
         ticket.setStatus("WAITLISTED");
-        ticket.setLastCheckedAt(LocalDateTime.now());
         return ticketRepository.save(ticket);
     }
 
