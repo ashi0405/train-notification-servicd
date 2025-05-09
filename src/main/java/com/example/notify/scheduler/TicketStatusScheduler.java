@@ -1,6 +1,5 @@
 package com.example.notify.scheduler;
 
-import com.example.notify.emailservice.EmailService;
 import com.example.notify.entity.Ticket;
 import com.example.notify.pnr.PNRStatusClient;
 import com.example.notify.repository.TicketRepository;

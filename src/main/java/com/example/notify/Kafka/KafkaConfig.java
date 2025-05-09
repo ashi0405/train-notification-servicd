@@ -1,4 +1,4 @@
-package com.example.notify.config;
+package com.example.notify.Kafka;
 
 import com.example.notify.entity.Ticket;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

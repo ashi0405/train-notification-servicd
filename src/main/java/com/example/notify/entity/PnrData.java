@@ -1,6 +1,5 @@
 package com.example.notify.entity;
 
-import com.example.notify.response.PnrResponse;
 import lombok.Data;
 
 import java.util.List;
